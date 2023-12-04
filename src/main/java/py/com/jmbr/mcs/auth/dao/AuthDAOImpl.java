@@ -27,4 +27,10 @@ public class AuthDAOImpl implements AuthDAO{
         }
         return (result > 0);
     }
+    @Override
+    public AuthLogin getSession(String accessToken) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
 }

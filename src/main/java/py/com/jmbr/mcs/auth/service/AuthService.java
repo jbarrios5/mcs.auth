@@ -6,4 +6,6 @@ import py.com.jmbr.java.commons.exception.JMBRException;
 
 public interface AuthService {
     AuthPostResData login(AuthPostReq req) throws JMBRException;
+
+    Boolean isSessionExpires(String accessToken);
 }

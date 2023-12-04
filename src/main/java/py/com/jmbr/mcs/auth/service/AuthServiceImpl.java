@@ -66,4 +66,19 @@ public class AuthServiceImpl implements  AuthService {
         log.info(RequestUtil.LOG_FORMATT,logId,"login:Finish create login",data);
         return result;
     }
+  
+    @Override
+    public Boolean isSessionExpires(String accessToken) {
+        String logId = RequestUtil.getLogId();
+        log.info(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Checking acess_token is expires=",accessToken);
+        AuthLogin authLogin = authDAO.getSession(accessToken);
+
+        
+
+
+
+        throw new UnsupportedOperationException("Unimplemented method 'isSessionExpires'");
+    }
+
+    
 }
