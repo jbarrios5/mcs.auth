@@ -10,7 +10,6 @@ import py.com.jmbr.java.commons.beans.mcs.user.UserGetResData;
 import py.com.jmbr.java.commons.domain.mcs.auth.AuthLogin;
 import py.com.jmbr.java.commons.domain.mcs.auth.AuthPostReq;
 import py.com.jmbr.java.commons.domain.mcs.auth.AuthPostRes;
-import py.com.jmbr.java.commons.domain.mcs.user.User;
 import py.com.jmbr.java.commons.exception.JMBRException;
 import py.com.jmbr.java.commons.exception.JMBRExceptionType;
 import py.com.jmbr.java.commons.logger.RequestUtil;
@@ -18,6 +17,7 @@ import py.com.jmbr.mcs.auth.config.SecurityConfig;
 import py.com.jmbr.mcs.auth.dao.AuthDAO;
 import py.com.jmbr.mcs.auth.util.AuthUtil;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -71,13 +71,14 @@ public class AuthServiceImpl implements  AuthService {
     public Boolean isSessionExpires(String accessToken) {
         String logId = RequestUtil.getLogId();
         log.info(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Checking acess_token is expires=",accessToken);
-        AuthLogin authLogin = authDAO.getSession(accessToken);
+        log.info(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Before checking  acess_token= ",accessToken);
+        boolean isSessionExpires = authDAO.isSessionExpires(accessToken,logId);
+        log.info(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:After checking  acess_token result= ",isSessionExpires);
+        if(isSessionExpires)
+            return Boolean.FALSE;
+        else
+            return Boolean.TRUE;
 
-        
-
-
-
-        throw new UnsupportedOperationException("Unimplemented method 'isSessionExpires'");
     }
 
     

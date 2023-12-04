@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import py.com.jmbr.java.commons.domain.mcs.auth.AuthLogin;
 import py.com.jmbr.java.commons.domain.mcs.user.User;
 import py.com.jmbr.java.commons.logger.RequestUtil;
 import py.com.jmbr.mcs.auth.util.AuthUtil;
@@ -28,9 +29,16 @@ public class AuthDAOImpl implements AuthDAO{
         return (result > 0);
     }
     @Override
-    public AuthLogin getSession(String accessToken) {
-        // TODO Auto-generated method stub
-        return null;
+    public boolean isSessionExpires(String accessToken,String logId) {
+        int result = 0;
+        try {
+            result = jdbcPGS.queryForObject(SQLQueries.CHECK_SESSION,
+                    new Object []{accessToken},Integer.class);
+        }catch (DataAccessException e){
+            logger.warn(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Unexpected error checking session",e.getMessage());
+            result = 0;
+        }
+        return (result > 0);
     }
     
 }

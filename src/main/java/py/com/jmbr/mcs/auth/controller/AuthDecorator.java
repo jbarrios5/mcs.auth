@@ -27,6 +27,6 @@ public class AuthDecorator {
     @PostMapping("/verify")
     @Operation(summary = "authenticate user",description = "Authenticate user by password and document")
     public Boolean verifyAccessToken(@RequestParam(value = "access_token")String accessToken) throws JMBRException {
-        return Boolean.TRUE;
+        return authService.isSessionExpires(accessToken);
     }
 }
