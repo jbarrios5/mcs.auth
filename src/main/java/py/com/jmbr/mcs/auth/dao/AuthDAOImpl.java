@@ -38,7 +38,7 @@ public class AuthDAOImpl implements AuthDAO{
             logger.warn(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Unexpected error checking session",e.getMessage());
             result = 0;
         }
-        return (result > 0);
+        return (result == 0);
     }
     
 }
