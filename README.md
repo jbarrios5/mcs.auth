@@ -15,7 +15,9 @@ Docker: ```Docker file para crear imagen ```
 Documentacion:```Swagger-ui para documentar los enpoint ```
 
 # Estructura de la tabla utilizada
+
 ![tabla mcs ](docs/auth-user-diagram.png)
+
 
 # Flujo con los mcs y apis relacionados
 ![Flujo mcs relacionados](docs/diagrama-autenticacion.png)
@@ -31,4 +33,6 @@ Documentacion:```Swagger-ui para documentar los enpoint ```
 
 4- Tener configurado una base de datos ```postgres``` y adaptar la cadena de conexion del archivo ```application.yml``` del proyecto ```mcs.auth```
 
+
 5- Ejecutar el comando ```java -jar mcs.auth.jar```
+
