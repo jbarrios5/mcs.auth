@@ -13,10 +13,6 @@ import py.com.jmbr.java.commons.context.RequestContextInitializer;
 @EnableWebMvc
 public class AppMvcConfig implements WebMvcConfigurer {
 
-
-
-
-
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/","/swagger-ui.html");

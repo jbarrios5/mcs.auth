@@ -18,14 +18,15 @@ import javax.validation.Valid;
 public class AuthDecorator {
     @Autowired
     private AuthService authService;
+
     @PostMapping("/login")
     @Operation(summary = "authenticate user",description = "Authenticate user by password and document")
     public AuthPostResData login(@RequestBody @Valid AuthPostReqData req) throws JMBRException {
         return authService.login(req.getData());
     }
 
-    @PostMapping("/verify")
-    @Operation(summary = "authenticate user",description = "Authenticate user by password and document")
+    @GetMapping("/verify")
+    @Operation(summary = "verify accessToken",description = "Verify accessToken is expires")
     public Boolean verifyAccessToken(@RequestParam(value = "access_token")String accessToken) throws JMBRException {
         return authService.isSessionExpires(accessToken);
     }
