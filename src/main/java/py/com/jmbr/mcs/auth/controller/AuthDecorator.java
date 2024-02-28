@@ -18,6 +18,7 @@ import javax.validation.Valid;
 public class AuthDecorator {
     @Autowired
     private AuthService authService;
+
     @PostMapping("/login")
     @Operation(summary = "authenticate user",description = "Authenticate user by password and document")
     public AuthPostResData login(@RequestBody @Valid AuthPostReqData req) throws JMBRException {

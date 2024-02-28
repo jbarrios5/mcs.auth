@@ -3,6 +3,7 @@ package py.com.jmbr.mcs.auth.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -14,7 +15,8 @@ import py.com.jmbr.java.commons.logger.RequestUtil;
 
 @Component
 public class AuthHttpClientImpl implements AuthHttpClient{
-    private String USER_URI = "http://localhost:8082/mcs.user/user/v1";
+    @Value("${user.uri}")
+    private String USER_URI ;
     private static final Logger logger = LoggerFactory.getLogger(AuthHttpClientImpl.class);
     @Autowired
     private RestTemplate authRestTemplate;
