@@ -10,4 +10,5 @@ public class SecurityConfig {
         return bCryptPasswordEncoder.matches(passwordPlain,passwordHash);
 
     }
+
 }

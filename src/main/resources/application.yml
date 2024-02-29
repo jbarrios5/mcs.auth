@@ -16,3 +16,5 @@ user:
 logging:
   level:
     root: ${LOG_LEVEL}
+api:
+  key: icejas-088cad7b-7a3b-4a04-b0c5-f4b0796e5b89

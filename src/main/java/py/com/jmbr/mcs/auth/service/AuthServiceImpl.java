@@ -18,6 +18,7 @@ import py.com.jmbr.mcs.auth.dao.AuthDAO;
 import py.com.jmbr.mcs.auth.util.AuthUtil;
 
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.UUID;
 
 @Service
@@ -37,6 +38,12 @@ public class AuthServiceImpl implements  AuthService {
         AuthPostRes data = new AuthPostRes();
         AuthLogin authLogin = new AuthLogin();
         authLogin.setAccessToken(logId);
+        // Decodifica la contraseña codificada en Base64 a bytes
+        byte[] bytesDecodificados = Base64.getDecoder().decode(req.getPassword());
+
+        // Convierte los bytes decodificados a una cadena
+        req.setPassword(new String(bytesDecodificados));
+
         log.info(RequestUtil.LOG_FORMATT,logId,"login:Starting post login document=",req.getDocument());
 
         UserGetResData user = httpClient.getUserByDocument(req.getDocument(), logId);
@@ -70,14 +77,15 @@ public class AuthServiceImpl implements  AuthService {
     @Override
     public Boolean isSessionExpires(String accessToken) {
         String logId = RequestUtil.getLogId();
-        log.info(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Checking acess_token is expires=",accessToken);
+        accessToken = accessToken.split("Bearer")[1].trim();
+        log.debug(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Checking acess_token is expires=",accessToken);
         log.info(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Before checking  acess_token= ",accessToken);
         boolean isSessionExpires = authDAO.isSessionExpires(accessToken,logId);
         log.info(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:After checking  acess_token result= ",isSessionExpires);
         if(isSessionExpires)
-            return Boolean.FALSE;
-        else
             return Boolean.TRUE;
+        else
+            return Boolean.FALSE;
 
     }
 
