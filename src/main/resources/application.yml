@@ -10,8 +10,6 @@ datasource:
     maximum-pool-size: 10 # Establecer el tamaño máximo del pool de conexiones
     idle-timeout: 30000   # Tiempo de espera máximo para conexiones inactivas (en milisegundos)
     connection-timeout: 10000
-user:
-  uri: ${USER_URI}
 
 logging:
   level:

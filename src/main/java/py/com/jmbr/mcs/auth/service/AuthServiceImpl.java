@@ -25,7 +25,7 @@ import java.util.UUID;
 public class AuthServiceImpl implements  AuthService {
     private static final Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
     @Autowired
-    private AuthHttpClient httpClient;
+    private UserService userService;
     @Autowired
     private SecurityConfig securityConfig;
 
@@ -46,7 +46,7 @@ public class AuthServiceImpl implements  AuthService {
 
         log.info(RequestUtil.LOG_FORMATT,logId,"login:Starting post login document=",req.getDocument());
 
-        UserGetResData user = httpClient.getUserByDocument(req.getDocument(), logId);
+        UserGetResData user = userService.getUserByDocument(req.getDocument());
 
         if(user == null )
             throw new JMBRException("No se pudo obtener el usuario", JMBRExceptionType.WARNING, HttpStatus.BAD_REQUEST);
