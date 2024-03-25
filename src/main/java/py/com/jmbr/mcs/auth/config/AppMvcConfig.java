@@ -25,7 +25,7 @@ public class AppMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
-                .allowedOriginPatterns("http://64.23.151.45:4200");
+                .allowedOrigins("*");
     }
 
     @Bean("intercepto-auth")

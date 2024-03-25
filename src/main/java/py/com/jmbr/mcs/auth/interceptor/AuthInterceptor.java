@@ -34,7 +34,7 @@ public class AuthInterceptor  implements HandlerInterceptor {
             return true;
         }
 
-        logger.info("Request URI",request.getRequestURI().toString());
+        logger.info("Received request:");
         String apiKeyHeader = request.getHeader("apiKey");
 
         if(apiKeyHeader == null )

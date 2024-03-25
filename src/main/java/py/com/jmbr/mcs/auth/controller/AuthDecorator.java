@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import py.com.jmbr.java.commons.beans.mcs.auth.AuthPostReqData;
 import py.com.jmbr.java.commons.beans.mcs.auth.AuthPostResData;
 
+import py.com.jmbr.java.commons.beans.mcs.user.UserPostReqData;
+import py.com.jmbr.java.commons.beans.mcs.user.UserPostResData;
 import py.com.jmbr.java.commons.context.OperationAllow;
 import py.com.jmbr.java.commons.exception.JMBRException;
 import py.com.jmbr.mcs.auth.annotations.AuthSecurityAccess;
@@ -39,4 +41,5 @@ public class AuthDecorator {
             @RequestHeader(value = "Authorization")String accessToken) throws JMBRException {
         return authService.isSessionExpires(accessToken);
     }
+
 }
