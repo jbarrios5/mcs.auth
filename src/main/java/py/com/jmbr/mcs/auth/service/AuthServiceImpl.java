@@ -44,22 +44,22 @@ public class AuthServiceImpl implements  AuthService {
         // Convierte los bytes decodificados a una cadena
         req.setPassword(new String(bytesDecodificados));
 
-        log.info(RequestUtil.LOG_FORMATT,logId,"login:Starting post login document=",req.getDocument());
+        log.debug(RequestUtil.LOG_FORMATT,logId,"login:Starting post login document=",req.getDocument());
 
         UserGetResData user = userService.getUserByDocument(req.getDocument());
 
         if(user == null )
             throw new JMBRException("No se pudo obtener el usuario", JMBRExceptionType.WARNING, HttpStatus.BAD_REQUEST);
-        log.info(RequestUtil.LOG_FORMATT,logId,"login:Before check user password ",null);
+        log.debug(RequestUtil.LOG_FORMATT,logId,"login:Before check user password ",null);
         boolean isPassCorrect = securityConfig.passwordHashDecode(req.getPassword(),user.getData().getUser().getPassword());
-        log.info(RequestUtil.LOG_FORMATT,logId,"login:After check user password ",isPassCorrect);
+        log.debug(RequestUtil.LOG_FORMATT,logId,"login:After check user password ",isPassCorrect);
 
         if(!isPassCorrect)
             throw new JMBRException("Credenciales invalidas", JMBRExceptionType.FALTAL, HttpStatus.BAD_REQUEST);
         String accessToken = UUID.randomUUID().toString();
-        log.info(RequestUtil.LOG_FORMATT,logId,"login:Before create session user password ",null);
+        log.debug(RequestUtil.LOG_FORMATT,logId,"login:Before create session user password ",null);
         boolean isSessionCreated = authDAO.addAuth(user.getData().getUser(),accessToken ,logId);
-        log.info(RequestUtil.LOG_FORMATT,logId,"login:After create session user password ",isSessionCreated);
+        log.debug(RequestUtil.LOG_FORMATT,logId,"login:After create session user password ",isSessionCreated);
         if(!isSessionCreated)
             throw new JMBRException("Ocurrio un error al crear la session", JMBRExceptionType.FALTAL, HttpStatus.INTERNAL_SERVER_ERROR);
         authLogin.setAccessToken(accessToken);
@@ -70,7 +70,7 @@ public class AuthServiceImpl implements  AuthService {
         data.setLogin(authLogin);
         data.setUser(user.getData().getUser());
         result.setData(data);
-        log.info(RequestUtil.LOG_FORMATT,logId,"login:Finish create login",data);
+        log.debug(RequestUtil.LOG_FORMATT,logId,"login:Finish create login",data);
         return result;
     }
   
@@ -79,9 +79,9 @@ public class AuthServiceImpl implements  AuthService {
         String logId = RequestUtil.getLogId();
         accessToken = accessToken.split("Bearer")[1].trim();
         log.debug(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Checking acess_token is expires=",accessToken);
-        log.info(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Before checking  acess_token= ",accessToken);
+        log.debug(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Before checking  acess_token= ",accessToken);
         boolean isSessionExpires = authDAO.isSessionExpires(accessToken,logId);
-        log.info(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:After checking  acess_token result= ",isSessionExpires);
+        log.debug(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:After checking  acess_token result= ",isSessionExpires);
         if(isSessionExpires)
             return Boolean.TRUE;
         else
