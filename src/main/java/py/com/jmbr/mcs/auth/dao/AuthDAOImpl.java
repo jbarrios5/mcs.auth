@@ -30,7 +30,7 @@ public class AuthDAOImpl implements AuthDAO{
     }
     @Override
     public boolean isSessionExpires(String accessToken,String logId) {
-        int result = 0;
+        Integer result = 0;
         try {
             result = jdbcPGS.queryForObject(SQLQueries.CHECK_SESSION,
                     new Object []{accessToken},Integer.class);
@@ -38,7 +38,7 @@ public class AuthDAOImpl implements AuthDAO{
             logger.warn(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Unexpected error checking session",e.getMessage());
             result = 0;
         }
-        return (result > 0);
+        return (result == 0);
     }
     
 }

@@ -77,10 +77,9 @@ public class AuthServiceImpl implements  AuthService {
     public Boolean isSessionExpires(String accessToken) {
         String logId = RequestUtil.getLogId();
         accessToken = accessToken.split("Bearer")[1].trim();
-        log.debug(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Checking acess_token is expires=",accessToken);
-        log.debug(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Before checking  acess_token= ",accessToken);
+        log.info(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:Before checking  acess_token= ",accessToken);
         boolean isSessionExpires = authDAO.isSessionExpires(accessToken,logId);
-        log.debug(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:After checking  acess_token result= ",isSessionExpires);
+        log.info(RequestUtil.LOG_FORMATT,logId,"isSessionExpires:After checking  acess_token is expired? = ",isSessionExpires);
         if(isSessionExpires)
             return Boolean.TRUE;
         else
