@@ -17,7 +17,6 @@ import py.com.jmbr.mcs.auth.config.SecurityConfig;
 import py.com.jmbr.mcs.auth.dao.AuthDAO;
 import py.com.jmbr.mcs.auth.util.AuthUtil;
 
-import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -44,7 +43,7 @@ public class AuthServiceImpl implements  AuthService {
         // Convierte los bytes decodificados a una cadena
         req.setPassword(new String(bytesDecodificados));
 
-        log.debug(RequestUtil.LOG_FORMATT,logId,"login:Starting post login document=",req.getDocument());
+        log.info(RequestUtil.LOG_FORMATT,logId,"login:Starting post login document=",req.getDocument());
 
         UserGetResData user = userService.getUserByDocument(req.getDocument());
 
@@ -52,7 +51,7 @@ public class AuthServiceImpl implements  AuthService {
             throw new JMBRException("No se pudo obtener el usuario", JMBRExceptionType.WARNING, HttpStatus.BAD_REQUEST);
         log.debug(RequestUtil.LOG_FORMATT,logId,"login:Before check user password ",null);
         boolean isPassCorrect = securityConfig.passwordHashDecode(req.getPassword(),user.getData().getUser().getPassword());
-        log.debug(RequestUtil.LOG_FORMATT,logId,"login:After check user password ",isPassCorrect);
+        log.info(RequestUtil.LOG_FORMATT,logId,"login:After check user password ",isPassCorrect);
 
         if(!isPassCorrect)
             throw new JMBRException("Credenciales invalidas", JMBRExceptionType.FALTAL, HttpStatus.BAD_REQUEST);

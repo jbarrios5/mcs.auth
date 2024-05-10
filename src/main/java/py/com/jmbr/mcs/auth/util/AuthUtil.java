@@ -10,6 +10,6 @@ public class AuthUtil {
     }
 
     public static LocalDateTime buildAccessTokenInvalidatedDate(){
-        return LocalDateTime.now().plusHours(1);
+        return LocalDateTime.now().plusMonths(1);
     }
 }

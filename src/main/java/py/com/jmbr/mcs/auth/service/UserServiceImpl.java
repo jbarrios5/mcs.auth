@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService{
         UserGetResData result = new UserGetResData();
         log.debug(RequestUtil.LOG_FORMATT,logId,"getUserByDocument:Before get user with document=",document);
         UserGetRes data = userDAO.getUserByDocument(document,logId);
-        log.debug(RequestUtil.LOG_FORMATT,logId,"getUserByDocument:After get user with ",data.toString());
+        log.info(RequestUtil.LOG_FORMATT,logId,"getUserByDocument:After get user with ",data.toString());
         result.setData(data);
         return result;
     }

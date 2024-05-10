@@ -2,6 +2,16 @@ server:
   port: 8081
   servlet:
     context-path: /@project.artifactId@
+springdoc:
+  show-actuator: true
+management:
+  metrics:
+    tags:
+      application: '@project.artifactId@'
+  endpoints:
+    web:
+      exposure:
+        include: health, info,metrics,prometheus, caches
 datasource:
   pgs:
     jdbcUrl: jdbc:postgresql://${DB_URL}:5432/${DB_NAME}
@@ -13,6 +23,6 @@ datasource:
 
 logging:
   level:
-    root: ${LOG_LEVEL}
+    py.com.jmbr.mcs.auth: INFO
 api:
   key: icejas-088cad7b-7a3b-4a04-b0c5-f4b0796e5b89
